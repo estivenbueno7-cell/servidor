@@ -14,41 +14,41 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.kevcard.proyecto11.Controller.curso;
 @RestController
-@RequestMapping("/{cursosId}")
+@RequestMapping("/cursos")
 
 public class cursos {
     
     private List<curso> cursos = new ArrayList<>();
-    
-    @GetMapping("/{cursosId}")
-    public List<curso> MostrarCursos() {
-        return cursos; 
+
+    @GetMapping
+    public List<curso> mostrarCursos() {
+        return cursos;
     }
-    @PostMapping("/{cursosId}")
-    public cursos crearCurso(@RequestBody curso curso) {
+
+    @PostMapping
+    public curso crearCurso(@RequestBody curso curso) {
         cursos.add(curso);
-        return this;
+        return curso;
     }
-@PutMapping("/{cursosId}")
-public cursos actualizarPcCursos(@PathVariable int  id, @RequestBody curso cursoActualizado) {
-    for (curso c : cursos) {
-        if (c.getId() == id) {
-            c.setNombre(cursoActualizado.getNombre());
-            c.setDescripcion(cursoActualizado.getDescripcion());
-            c.setDuracionHoras(cursoActualizado.getDuracionHoras());
-            c.setActivo(cursoActualizado.isActivo());
-            return this;
+
+    @PutMapping("/{id}")
+    public curso actualizarCursos(@PathVariable int id, @RequestBody curso cursoActualizado) {
+
+        for (curso c : cursos) {
+            if (c.getId() == id) {
+                c.setNombre(cursoActualizado.getNombre());
+                c.setDescripcion(cursoActualizado.getDescripcion());
+                c.setDuracionHoras(cursoActualizado.getDuracionHoras());
+                c.setActivo(cursoActualizado.isActivo());
+                return c;
+            }
         }
-    }
-            return null;
 
-}
-
-@DeleteMapping("/{cursosId}")
-public void eliminarCursos(@PathVariable("cursosId") int id) {
-    cursos.removeIf(p -> p.getId() == id);
-}
+        return null;
     }
 
-
-  
+    @DeleteMapping("/{id}")
+    public void eliminarCursos(@PathVariable int id) {
+        cursos.removeIf(p -> p.getId() == id);
+    }
+}
