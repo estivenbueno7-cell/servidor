@@ -3,6 +3,7 @@ package com.kevcard.proyecto11.Controller.Entyty;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,17 +14,17 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.kevcard.proyecto11.Controller.curso;
 @RestController
-@RequestMapping("/cursos")
+@RequestMapping("/{cursosId}")
 
 public class cursos {
     
     private List<curso> cursos = new ArrayList<>();
     
-    @GetMapping
+    @GetMapping("/{cursosId}")
     public List<curso> MostrarCursos() {
         return cursos; 
     }
-    @PostMapping
+    @PostMapping("/{cursosId}")
     public cursos crearCurso(@RequestBody curso curso) {
         cursos.add(curso);
         return this;
@@ -42,7 +43,12 @@ public cursos actualizarPcCursos(@PathVariable int  id, @RequestBody curso curso
             return null;
 
 }
-    
+
+@DeleteMapping("/{cursosId}")
+public void eliminarCursos(@PathVariable("cursosId") int id) {
+    cursos.removeIf(p -> p.getId() == id);
 }
+    }
+
 
   
